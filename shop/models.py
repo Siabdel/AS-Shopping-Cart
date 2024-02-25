@@ -50,3 +50,50 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return f"Image for {self.product.name}"
+
+
+#----------------------
+#- Product Attribus 
+
+class ProductItem(models.Model):
+    """
+    Déclinaison de produit déterminée par des attributs comme la couleur, etc.
+    """
+
+    class Meta:
+        verbose_name = "Déclinaison Produit"
+
+    product     = models.ForeignKey('Product', on_delete=models.CASCADE)
+    code        = models.CharField(max_length=10, null=True, blank=True, unique=True)
+    code_ean13  = models.CharField(max_length=13)
+    attributes  = models.ManyToManyField("ProductAttributeValue", related_name="product_item", null=True, blank=True)
+
+    def __str__(self):
+        return u"{0} [{1}]".format(self.product.name, self.code)
+
+class ProductAttribute(models.Model):
+    """
+    Attributs produit
+    """
+    class Meta:
+        verbose_name = "Attribut"
+
+    name =  models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class ProductAttributeValue(models.Model):
+    """
+    Valeurs des attributs
+    """
+    class Meta:
+        verbose_name = "Valeur attribut"
+        ordering = ['position']
+
+    value              = models.CharField(max_length=100)
+    product_attribute  = models.ForeignKey('ProductAttribute', verbose_name="Unité", on_delete=models.CASCADE)
+    position           = models.PositiveSmallIntegerField("Position", null=True, blank=True)
+
+    def __str__(self):
+        return u"{0} [{1}]".format(self.value, self.product_attribute)

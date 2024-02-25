@@ -45,4 +45,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 admin.site.register(sh_models.Product, ProductAdmin)
 admin.site.register(sh_models.ProductImage)
-
+#-- Attributs
+admin.site.register(sh_models.ProductItem)
+admin.site.register(sh_models.ProductAttribute)
+admin.site.register(sh_models.ProductAttributeValue)
