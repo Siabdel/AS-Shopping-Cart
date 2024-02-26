@@ -47,6 +47,6 @@ def images_by_product_name(request):
             images = None
     else:
         images = None
-    return render(request, 'images.html', {'images': images})
+    return render(request, 'shop/product/images.html', {'image': images})
 
     

@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 
 class Category(models.Model):
@@ -47,6 +48,8 @@ class Product(models.Model):
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name="images", on_delete=models.CASCADE)
     image = models.ImageField(upload_to='upload/product_images/%Y/%m/', blank=True)
+    thumbnail_path = models.CharField(_("thumbnail"), max_length=50, null=True)
+    large_path     = models.CharField(_("large"), max_length=50, null=True)
 
     def __str__(self):
         return f"Image for {self.product.name}"
