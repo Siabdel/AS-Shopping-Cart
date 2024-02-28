@@ -11,7 +11,7 @@ def product_list(request, category_slug=None):
     products = sh_models.Product.objects.filter(available=True)
     if category_slug:
         category = get_object_or_404(sh_models.Category, slug=category_slug)
-        products = Product.objects.filter(category=category)
+        products = sh_models.Product.objects.filter(category=category)
 
     context = {
         'category': category,
@@ -25,12 +25,13 @@ def product_detail(request, id, slug):
     product = get_object_or_404(sh_models.Product, id=id, slug=slug, available=True)
      
     # Récupérer les images associées à ce produit en utilisant la méthode que nous avons définie dans le modèle
-    product_images = product.get_images()
+    product_images = product.images.all()
 
     cart_product_form = CartAddProductForm()
     context = {
         'product': product,
         'product_images' : product_images,
+        'image' : product_images.first(),
 
         'cart_product_form': cart_product_form
     }

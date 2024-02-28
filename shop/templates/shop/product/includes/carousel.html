@@ -8,11 +8,10 @@
             {% endfor %}
         </ol>
         <div class="carousel-inner">
+                
             {% for image in product_images %}
-                <div class="carousel-item {% if forloop.first %} active {% endif %}">
-                    
-                    <!-- <img src="{% if product.image %} {{ product.image.url }} {% else %} {% static 'img/default.jpg' %} {% endif %}" alt="..." style="height: 170px; width: auto">--> 
-                    <img class="rounded-lg rounded-3 img-fluid" src="{{ image.image.url }}" alt="{{ product.name }}" style="height: 370px; width: auto">
+                <div class="product-image carousel-item {% if forloop.first %} active {% endif %}">
+                    <img src="{{ image.large_path }}" alt="{{ product.name }}" class="rounded-lg img-fluid" id="product-image" style="height:800; widht:600">
                 </div>
             {% endfor %}
         </div>
@@ -25,4 +24,16 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
+
+     <style>
+        /* Personnalisation des styles supplémentaires */
+        .product-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+        .product-image img:hover {
+            transform: scale(1.2);
+        }
+    </style>
 
