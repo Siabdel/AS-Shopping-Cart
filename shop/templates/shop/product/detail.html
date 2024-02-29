@@ -9,7 +9,13 @@
     <div class="row">
         <div class="col-md-6"> 
             <div class="product-image">
-                {% include './includes/carousel.html' %}
+                {% if product_images|length >= 0 %}
+                    {% include './includes/carousel.html' %}
+                {% else %}
+                    <div class="product-image">
+                        <img src="{% static 'img/large_800x600_plan-apprt.jpg' %}" alt="{{ product_images }}" class="rounded-lg img-fluid" id="product-image" style="height:800; widht:600">
+                    </div>
+                {% endif %}
             </div>
         </div>
 
@@ -21,7 +27,7 @@
                 <form action="{% url "cart:cart_add" product.id %}" method="post">
                     {% csrf_token %}
                     {{ cart_product_form }}
-                    <input type="submit" value="add to cart" class="btn btn-primary">
+                    <input type="submit" value="add to cart" class="btn btn-warning">
                 </form>
                 <p>{{ product.description|safe|linebreaksbr }}</p>
             </div>
